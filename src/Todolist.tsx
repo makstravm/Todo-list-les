@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
 import { filterValuesType, TaskType } from './App';
 
 type PropsTodoList = {
   title: string
   tasks: Array<TaskType>
-  removeTask: (taskId: number) => void
+  removeTask: (taskId: string) => void
   changeFilterTodoList: (value: filterValuesType) => void
+  addTask: (title: string) => void
 }
 export function TodoList(props: PropsTodoList) {
-
+  const [title, setTitle] = useState<string>('')
   const tasksJSX = props.tasks.map(t => {
     const removeTask = () => props.removeTask(t.id)
     return (
@@ -19,22 +20,38 @@ export function TodoList(props: PropsTodoList) {
       </li>
     )
   })
-
+  const onClickAddTask = () => {
+    props.addTask(title)
+    setTitle('')
+  }
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+  const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onClickAddTask()
+    }
+  }
+  const changeFilterAllTodoList = () => props.changeFilterTodoList('all')
+  const changeFilterActiveTodoList = () => props.changeFilterTodoList('active')
+  const changeFilterCompletedTodoList = () => props.changeFilterTodoList('completed')
 
   return (
     <div>
       <h3>{props.title}</h3>
       <div>
-        <input />
-        <button>+</button>
+        <input
+          value={title}
+          onChange={onChangeTitle}
+          onKeyPress={onKeyPressAddTask}
+        />
+        <button onClick={onClickAddTask}>+</button>
       </div>
       <ul>
         <li>{tasksJSX}</li>
       </ul>
       <div>
-        <button onClick={() => props.changeFilterTodoList('all')}>All</button>
-        <button onClick={() => props.changeFilterTodoList('active') }>Active</button>
-        <button onClick={() => props.changeFilterTodoList('completed') }>Completed</button>
+        <button onClick={changeFilterAllTodoList}>All</button>
+        <button onClick={changeFilterActiveTodoList}>Active</button>
+        <button onClick={changeFilterCompletedTodoList}>Completed</button>
       </div>
     </div >
   )
