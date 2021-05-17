@@ -54,6 +54,11 @@ function App() {
         return task
     }
   }
+  function changeTaskStatus(taskId: string, isDone: boolean) {
+    const updateTasks = task.map(t => t.id === taskId ? { ...t, isDone } : t)
+    setTask(updateTasks)
+
+  }
 
   //UI:
 
@@ -64,7 +69,9 @@ function App() {
         tasks={getFilterTasks()}
         removeTask={removeTask}
         changeFilterTodoList={changeFilterTodoList}
-        addTask = {addTask}
+        addTask={addTask}
+        filter={filter}
+        changeTaskStatus={changeTaskStatus}
       />
     </div>
   );
