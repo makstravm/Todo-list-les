@@ -6,3 +6,128 @@
 .App > div {
   margin-right: 50px;
 }
+
+.is-done {
+  opacity: 0.5;
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 15px;
+  border: none;
+  background-color: #000;
+  color: greenyellow;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn:hover {
+  box-shadow: inset 0px 0px 10px 0px #3cff00;
+}
+.btn.active-filter {
+  animation: BoxCircle 1.5s linear infinite;
+}
+
+.error {
+  border: 2px solid red;
+  background-color: rgba(255, 0, 0, 0.247);
+  outline: none;
+}
+.input {
+  padding: 5px 15px;
+  font-size: 20px;
+  background-color: #fff;
+  border: none;
+  margin-right: 15px;
+  box-shadow: 0px 0px 5px 0px #000000;
+}
+.input.error {
+  box-shadow: 0px 0px 5px 0px #ff0000;
+  background-color: rgba(255, 0, 0, 0.247);
+  outline: none;
+}
+.errorText {
+  color: red;
+  font-size: 14px;
+}
+.btnInput {
+  background-color: #ececec;
+  border: none;
+  font-size: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px 0px #000000;
+  transition: all 0.3s;
+}
+.btnInput:hover {
+  background-color: rgb(248, 248, 248);
+}
+.btnInput:active {
+  background-color: #fff;
+  box-shadow: inset 0px 0px 3px 0px #000000;
+}
+.list {
+  padding: 0;
+  list-style: none;
+}
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  max-width: 400px;
+  width: 100%;
+}
+.listItem:nth-child(odd) {
+  background-color: #ececec;
+}
+.listItem:nth-child(even) {
+  background-color: #fff;
+}
+.listSpan {
+  font-size: 18px;
+  padding: 10px 15px;
+}
+.checkboxInput {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  position: absolute;
+}
+.checkboxCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  box-shadow: inset 0px 0px 3px 0px #000000;
+  cursor: pointer;
+}
+
+.checkboxInput:checked + .checkboxCheck {
+ background-color: rgb(0, 255, 0);
+}
+
+@keyframes BoxCircle {
+  0% {
+    background-color: rgb(0, 0, 0);
+    color: rgb(0, 255, 13);
+    border-radius: 0;
+    transform: scale(0);
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(-1, 1);
+    border-radius: 50%;
+    background-color: rgb(9, 255, 0);
+    color: rgb(0, 0, 0);
+  }
+  100% {
+    border-radius: 0;
+    transform: scale(1, 1);
+    background-color: rgb(0, 0, 0);
+    color: rgb(0, 255, 13);
+  }
+}
