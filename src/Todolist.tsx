@@ -34,7 +34,8 @@ export function TodoList(props: PropsTodoList) {
           />
           <span className='checkboxCheck'></span>
         </label>
-        <span className={taskClass}> <EditableSpan
+        <span className={taskClass}> 
+        <EditableSpan
           changeTitle={changeTaskTitle}
           title={t.title} /></span>
 
