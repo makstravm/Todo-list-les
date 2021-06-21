@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { v1 } from 'uuid';
+import { AddItemForm } from './AddItemForm';
 import './App.css';
 import { TodoList } from './Todolist';
 
@@ -55,6 +56,17 @@ function App() {
     ]
   })
 
+  function addTodoList(title: string) {
+    const newTodoListId = v1();
+    const newTodoList: TodoListType = {
+      id: newTodoListId,
+      title,
+      filter: 'all'
+    }
+    setTodoList([...todoList, newTodoList])
+    setTasks({ ...tasks, [newTodoListId]: [] })
+  }
+
   function removeTodoList(todoListID: string) {
     setTodoList(todoList.filter(tl => tl.id !== todoListID))
     const copyTasks = { ...tasks }
@@ -83,6 +95,10 @@ function App() {
     setTodoList(todoList.map(tl => tl.id === todoListId ? { ...tl, filter } : tl
     ));
   }
+  function changeTitleTodoList(title: string, todoListId: string) {
+    setTodoList(todoList.map(tl => tl.id === todoListId ? { ...tl, title } : tl
+    ));
+  }
 
   function getFilterTasks(tl: TodoListType) {
     switch (tl.filter) {
@@ -99,6 +115,11 @@ function App() {
     copyTasks[todoListId] = tasks[todoListId].map(t => t.id === taskId ? { ...t, isDone } : t)
     setTasks(copyTasks)
   }
+  function changeTaskTitle(taskId: string, title: string, todoListId: string) {
+    const copyTasks = { ...tasks }
+    copyTasks[todoListId] = tasks[todoListId].map(t => t.id === taskId ? { ...t, title } : t)
+    setTasks(copyTasks)
+  }
 
   const todoListComponents = todoList.map(tl => {
     return (
@@ -112,7 +133,9 @@ function App() {
         addTask={addTask}
         filter={tl.filter}
         changeTaskStatus={changeTaskStatus}
-        removeTodoList ={removeTodoList}
+        removeTodoList={removeTodoList}
+        changeTaskTitle={changeTaskTitle}
+        changeTitleTodoList={changeTitleTodoList}
       />
     )
 
@@ -121,7 +144,10 @@ function App() {
 
   return (
     <div className="App">
-      {todoListComponents}
+      <AddItemForm addItem={addTodoList} />
+      <div className="todoList">
+        {todoListComponents}
+      </div>
     </div>
   );
 }
