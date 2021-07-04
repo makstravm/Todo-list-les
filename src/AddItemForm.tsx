@@ -1,3 +1,5 @@
+import { IconButton, TextField } from '@material-ui/core';
+import { AddBox } from '@material-ui/icons';
 import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
 
 type AddItemFormPorpsType = {
@@ -28,16 +30,15 @@ export function AddItemForm(props: AddItemFormPorpsType) {
   const errorStatus = error ? 'error' : ''
   return (
     <div>
-      <input
+      <TextField label="Standard" variant={"outlined"}
         value={title}
         onChange={onChangeTitle}
         onKeyPress={onKeyPressAddItem}
-        className={'input' + ' ' + (errorStatus)}
-      />
-      <button
-        className='btnInput'
-        onClick={onClickAddItem}>+</button>
-      {error && <div className='errorText'>Text isn't corrected!!!</div>}
-    </div>
+        error={error}
+        helperText={error && 'Text isnt corrected!!!'} />
+      <IconButton onClick={onClickAddItem} color={"secondary"}>
+        <AddBox />
+      </IconButton>
+    </div >
   )
 }
